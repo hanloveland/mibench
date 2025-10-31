@@ -42,7 +42,7 @@
 #include <ctype.h>
 
 #include "aes.h"
-
+#include <sys/types.h>
 /* A Pseudo Random Number Generator (PRNG) used for the     */
 /* Initialisation Vector. The PRNG is George Marsaglia's    */
 /* Multiply-With-Carry (MWC) PRNG that concatenates two     */
@@ -97,7 +97,8 @@ void fillrand(char *buf, int len)
 
 int encfile(FILE *fin, FILE *fout, aes *ctx, char* fn)
 {   char            inbuf[16], outbuf[16];
-    fpos_t          flen;
+    // fpos_t          flen;
+    off_t flen;  // ← 정수형 길이
     unsigned long   i=0, l=0;
 
     fillrand(outbuf, 16);           /* set an IV for CBC mode           */
@@ -108,7 +109,8 @@ int encfile(FILE *fin, FILE *fout, aes *ctx, char* fn)
     fillrand(inbuf, 1);             /* make top 4 bits of a byte random */
     l = 15;                         /* and store the length of the last */
                                     /* block in the lower 4 bits        */
-    inbuf[0] = ((char)flen & 15) | (inbuf[0] & ~15);
+    // inbuf[0] = ((char)flen & 15) | (inbuf[0] & ~15);
+    inbuf[0] = (unsigned char)((inbuf[0] & 0xF0) | ((unsigned)(flen & 0x0F)));
 
     while(!feof(fin))               /* loop to encrypt the input file   */
     {                               /* input 1st 16 bytes to buf[1..16] */
