@@ -1,0 +1,38 @@
+# --- Build artifacts (object files / libraries) ---
+*.o
+*.a
+*.so
+*.lo
+*.la
+
+# --- Build logs / output directories ---
+build_logs/
+telecomm/adpcm/bin/
+telecomm/gsm/bin/
+telecomm/gsm/lib/
+
+# --- Run/output files ---
+*.enc
+*.adpc
+output_large.smoothing.pgm
+
+# --- Compiled executables (no extension; listed explicitly to avoid ignoring sources) ---
+automotive/basicmath/basicmath_large
+automotive/basicmath/basicmath_small
+automotive/bitcount/bitcnts
+automotive/qsort/qsort_large
+automotive/qsort/qsort_small
+automotive/susan/susan
+network/dijkstra/dijkstra_large
+network/dijkstra/dijkstra_small
+network/patricia/patricia
+security/blowfish/bf
+security/blowfish/bfspeed
+security/blowfish/bftest
+security/rijndael/rijndael
+security/sha/sha
+telecomm/CRC32/crc
+telecomm/FFT/fft
+telecomm/adpcm/src/rawcaudio
+telecomm/adpcm/src/rawdaudio
+telecomm/adpcm/src/timing
